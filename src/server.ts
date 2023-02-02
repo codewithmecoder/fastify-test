@@ -1,5 +1,5 @@
 import Fastify, { FastifyRequest, FastifyReply } from "fastify";
-import fjwt, { JWT } from "fastify-jwt";
+import fjwt, { JWT } from "@fastify/jwt";
 import swagger from "fastify-swagger";
 import { withRefResolver } from "fastify-zod";
 import userRoutes from "./modules/user/user.route";
@@ -18,7 +18,7 @@ declare module "fastify" {
   }
 }
 
-declare module "fastify-jwt" {
+declare module "@fastify/jwt" {
   interface FastifyJWT {
     user: {
       id: number;
@@ -53,7 +53,7 @@ function buildServer() {
     return { status: "OK" };
   });
 
-  server.addHook("preHandler", (req, reply, next) => {
+  server.addHook("preHandler", (req: FastifyRequest, reply: FastifyReply, next: any) => {
     req.jwt = server.jwt;
     return next();
   });

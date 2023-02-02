@@ -8,6 +8,7 @@ import { CreateProductInput, Querystring } from "./product.schema";
 export async function createProduct(
   data: CreateProductInput & { ownerId: number }
 ) {
+  console.log(data)
   return prisma.product.create({
     data,
   });

@@ -1,9 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import {
-  CreateProductInput,
-  PaginationRes,
-  Querystring,
-} from "./product.schema";
+import { CreateProductInput, Querystring } from "./product.schema";
 import { createProduct, getProducts } from "./product.service";
 
 export async function createProductHandler(

@@ -3,6 +3,7 @@ import {
   loginHandler,
   registerUserHandler,
   getUsersHandler,
+  getUserContainsHandler,
 } from "./user.controller";
 import { $ref } from "./user.schema";
 
@@ -39,6 +40,10 @@ async function userRoutes(server: FastifyInstance) {
       preHandler: [server.authenticate],
     },
     getUsersHandler
+  );
+  server.get(
+    "/contain",
+    getUserContainsHandler
   );
 }
 

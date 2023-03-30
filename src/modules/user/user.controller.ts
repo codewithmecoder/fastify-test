@@ -1,7 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { verifyPassword } from "../../utils/hash";
+import { Querystring } from "../product/product.schema";
 import { CreateUserInput, LoginInput } from "./user.schema";
-import { createUser, findUserByEmail, findUsers } from "./user.service";
+import { createUser, findUserByEmail, findUserContains, findUsers } from "./user.service";
 
 export async function registerUserHandler(
   request: FastifyRequest<{
@@ -59,5 +60,10 @@ export async function loginHandler(
 export async function getUsersHandler() {
   const users = await findUsers();
 
+  return users;
+}
+
+export async function getUserContainsHandler(request: FastifyRequest<{ Querystring: Querystring }>) {
+  const users = await findUserContains(request.query.str ?? '');
   return users;
 }

@@ -12,7 +12,8 @@ datasource db {
 
 model User {
   id        Int       @id @default(autoincrement())
-  email     String    @unique
+  email     String    @unique /// @encrypted
+  emailHash     String?    @unique /// @encryption:hash(email)
   name      String?
   password  String
   salt      String

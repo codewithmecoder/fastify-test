@@ -18,6 +18,7 @@ export async function createUser(input: CreateUserInput) {
 }
 
 export async function findUserByEmail(email: string) {
+  const a = await prisma.user.findMany({});
   return prisma.user.findUnique({
     where: {
       email,
@@ -27,15 +28,33 @@ export async function findUserByEmail(email: string) {
 
 export async function findUsers() {
   return prisma.user.findMany({
-    where: {
-      expiredAt: {
-        gt: new Date(),
-      },
+    select: {
+      email: true,
+      name: true,
+      id: true,
+      createdAt: true,
+      expiredAt: true
     },
-    // select: {
-    //   email: true,
-    //   name: true,
-    //   id: true,
-    // },
+    orderBy: {
+      email: 'desc'
+    }
+  });
+}
+
+export async function findUserContains(str: string) {
+  return prisma.user.findMany({
+    where:{
+      email: {
+        contains: str,
+
+      }
+    },
+    select: {
+      email: true,
+      name: true,
+      id: true,
+      createdAt: true,
+      expiredAt: true
+    },
   });
 }

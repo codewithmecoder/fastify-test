@@ -2,6 +2,7 @@ import { z } from "zod";
 import { buildJsonSchemas } from "fastify-zod";
 
 const querystring = z.object({
+  str: z.string().optional(),
   page: z.number().default(1).optional(),
   pageSize: z.number().default(20).optional(),
 });
